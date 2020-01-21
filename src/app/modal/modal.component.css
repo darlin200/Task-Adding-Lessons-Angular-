@@ -1,0 +1,9 @@
+.wrapper-tittle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.buttons-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+}

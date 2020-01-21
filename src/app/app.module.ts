@@ -1,18 +1,37 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {ModalComponent, DialogComponent} from './modal/modal.component';
+import {MatCardModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DataService} from './user.service';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
+@NgModule( {
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatDialogModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+  entryComponents: [
+    DialogComponent
+  ],
+  declarations: [
+    AppComponent,
+    ModalComponent,
+    DialogComponent,
+  ],
+  bootstrap: [AppComponent],
+  providers: [DataService]
+} )
+export class AppModule {}
