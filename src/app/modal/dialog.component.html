@@ -8,7 +8,8 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE" placeholder="Date">
+        <input matInput [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE" placeholder="Date"
+          type="date">
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_DATE).invalid">
           <p>Це помилка ((( </p>
         </mat-error>

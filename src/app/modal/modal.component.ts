@@ -36,7 +36,8 @@ export class ModalComponent implements OnInit {
       next: ( message: any ) => {
         if( message.length >= 1 ) {
           this.message = message;
-          ELEMENT_DATA.push( {id: ELEMENT_DATA.length + 1, topic: this.message[0], date: this.message[1], lecturer: this.message[2]} );
+          const nextId = ELEMENT_DATA.length ? ELEMENT_DATA[ELEMENT_DATA.length - 1].id + 1 : 1;
+          ELEMENT_DATA.push( {id: nextId, topic: this.message[0], date: this.message[1], lecturer: this.message[2]} );
           this.subject.next( ELEMENT_DATA );
           this.try = true;
         }
@@ -66,14 +67,9 @@ export class ModalComponent implements OnInit {
     this.editableInput = !this.editableInput;
   }
 
-  deleteRow() {
+  deleteRow( id ) {
     if( ELEMENT_DATA.length > 1 ) {
-      this.subject.subscribe( {
-        next: ( myData: any ) => {
-          myData.pop();
-          console.log( myData );
-        }
-      } );
+      ELEMENT_DATA.splice( id, 1 );
     }
     this.subject.next( ELEMENT_DATA );
   }
@@ -92,9 +88,10 @@ export class DialogComponent extends ModelComponent<User> {
   public static readonly CONTROL_KEY_LECTURER = 'lecturerFormControl';
   public static readonly CONTROL_KEY_ID = 'idFormControl';
 
-  users = [];
-  staticScope = DialogComponent;
-  message: any;
+  public users = [];
+  public staticScope = DialogComponent;
+  public message: any;
+
 
   constructor ( injector: Injector, private dataService: DataService ) {
     super( injector );
