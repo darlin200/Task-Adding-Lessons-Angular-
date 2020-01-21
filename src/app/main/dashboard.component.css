@@ -1,9 +1,22 @@
+.main-wrapper {
+    display: flex;
+    width: 80%;
+    height: 30%;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+}
+
 .wrapper-tittle {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-.buttons-wrapper{
-    display: flex;
-    justify-content: space-evenly;
+
+.actions {
+    margin-left: 6vh !important;
+}
+
+.edit-button {
+    margin-right: 4px ;
 }
