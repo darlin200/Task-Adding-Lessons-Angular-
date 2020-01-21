@@ -1,16 +1,18 @@
-    .formGroup-wrapper {
+.formGroup-wrapper {
     display: flex;
     justify-content: center;
     align-content: center;
     flex-direction: column;
   }
-.wrapper-dialog {
+
+.dialog-wrapper {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 .actions-wrapper{
     display: flex;
     justify-content: center;

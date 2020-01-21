@@ -1,4 +1,4 @@
-<div class='wrapper-dialog'>
+<div class='dialog-wrapper'>
   <mat-dialog-content>
     <form [formGroup]="formGroup" class='formGroup-wrapper'>
       <mat-form-field>
@@ -8,8 +8,10 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE" placeholder="Date"
-          type="date">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE"
+          placeholder="Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_DATE).invalid">
           <p>Це помилка ((( </p>
         </mat-error>

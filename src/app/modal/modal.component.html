@@ -1,7 +1,7 @@
 <button mat-button (click)="openDialog()">Add new lesson</button>
 <h2 class="mat-h2" class='wrapper-tittle'>You haven`t added anything yet</h2>
 
-<div *ngIf='try'>
+<div class='main-wrapper' *ngIf='try'>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="id">
@@ -10,7 +10,6 @@
         {{element.id}}
       </mat-cell>
     </ng-container>
-
 
     <ng-container matColumnDef="topic">
       <mat-header-cell *matHeaderCellDef> topic </mat-header-cell>
@@ -51,10 +50,10 @@
 
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-      <mat-cell *matCellDef="let row" class='buttons-wrapper'>
+      <mat-cell *matCellDef="let row; let i = index; " let class='buttons-wrapper'>
         <button mat-stroked-button (click)='editRow()' *ngIf="editableInput">Save</button>
         <button mat-stroked-button (click)='editRow()' *ngIf="!editableInput">Edit</button>
-        <button mat-stroked-button (click)='deleteRow()'>Delete</button>
+        <button mat-stroked-button (click)='deleteRow(i)'>Delete</button>
       </mat-cell>
     </ng-container>
 

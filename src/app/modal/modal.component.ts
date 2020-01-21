@@ -5,8 +5,9 @@ import {IUser} from '../core/user.interface';
 import {AbstractControlOptions, FormControl, Validators} from '@angular/forms';
 import {ModelComponent} from '../model.component';
 import {DataService} from '../user.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, timer} from 'rxjs';
 import {CaseListDatasource} from './elements.directive';
+import {TIMEOUT} from 'dns';
 
 
 
@@ -74,7 +75,6 @@ export class ModalComponent implements OnInit {
     this.subject.next( ELEMENT_DATA );
   }
 }
-
 // Second component
 
 @Component( {
@@ -108,8 +108,7 @@ export class DialogComponent extends ModelComponent<User> {
       {
         key: this.staticScope.CONTROL_KEY_DATE,
         control: this.newFormControl(
-          Validators.required
-        )
+          Validators.required )
       },
       {
         key: this.staticScope.CONTROL_KEY_LECTURER,
@@ -126,11 +125,18 @@ export class DialogComponent extends ModelComponent<User> {
   }
 
   public addToList() {
-    this.users.push( this.formGroup.controls.topicFormControl.value, this.formGroup.controls.dateFormControl.value,
+    const getDay = this.formGroup.controls.dateFormControl.value.getDate() < 10 ? '0' +
+      this.formGroup.controls.dateFormControl.value.getDate()
+      : this.formGroup.controls.dateFormControl.value.getDate();
+    const getMonth = this.formGroup.controls.dateFormControl.value.getMonth() + 1;
+    const getYear = this.formGroup.controls.dateFormControl.value.getFullYear();
+    const getData = `${getDay}/` + `${getMonth}/` + `${getYear}`;
+    this.users.push( this.formGroup.controls.topicFormControl.value, getData,
       this.formGroup.controls.lecturerFormControl.value );
     this.dataService.currentMessage.subscribe( {
       next: ( message: any ) => {
         this.message = message;
+        console.log( this.formGroup.controls.dateFormControl );
       },
       error: ( err: any ) => {
         console.log( err );
