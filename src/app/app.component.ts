@@ -6,12 +6,5 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.css']
 } )
 export class AppComponent {
-  public OutputMoy: string;
-  constructor () {
 
-  }
-
-  DataFormChild( data ) {
-    this.OutputMoy = data;
-  }
 }

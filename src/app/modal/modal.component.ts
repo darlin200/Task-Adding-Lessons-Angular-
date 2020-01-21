@@ -1,21 +1,16 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {User} from '../core/user.model';
+import {IUser} from '../core/user.interface';
 import {AbstractControlOptions, FormControl, Validators} from '@angular/forms';
 import {ModelComponent} from '../model.component';
 import {DataService} from '../user.service';
 import {BehaviorSubject} from 'rxjs';
 import {CaseListDatasource} from './elements.directive';
 
-export interface IUserData {
-  id?: number;
-  topic?: string;
-  date?: string;
-  lecturer?: string;
-  action?: string;
-}
 
-const ELEMENT_DATA: IUserData[] = [
+
+const ELEMENT_DATA: IUser[] = [
 
 ];
 
