@@ -1,12 +1,14 @@
 <div class='dialog-wrapper'>
   <mat-dialog-content>
     <form [formGroup]="formGroup" class='formGroup-wrapper'>
+      <!-- Topic Input -->
       <mat-form-field>
         <input matInput [(ngModel)]="src.topic" [formControlName]="staticScope.CONTROL_KEY_TOPIC" placeholder="Topic">
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_TOPIC).invalid">
           <p>Це помилка ((( </p>
         </mat-error>
       </mat-form-field>
+      <!-- Date Input -->
       <mat-form-field>
         <input matInput [matDatepicker]="picker" [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE"
           placeholder="Date">
@@ -16,6 +18,7 @@
           <p>Це помилка ((( </p>
         </mat-error>
       </mat-form-field>
+      <!-- Lecturer Input -->
       <mat-form-field>
         <input matInput [(ngModel)]="src.lecturer" [formControlName]="staticScope.CONTROL_KEY_LECTURER"
           placeholder="Lecturer">

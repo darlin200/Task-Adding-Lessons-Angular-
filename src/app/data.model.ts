@@ -1,6 +1,6 @@
-import {IUser} from './user.interface';
+import {IData} from './data.interface';
 
-export class User {
+export class Data {
 
     private _topic: string;
     private _date: string;
@@ -40,7 +40,7 @@ export class User {
         this._lecturer = value;
     }
 
-    get data(): IUser {
+    get data(): IData {
         return {
             id: this._id,
             topic: this._topic,
@@ -49,7 +49,7 @@ export class User {
         };
     }
 
-    protected parse( data: IUser ): void {
+    protected parse( data: IData ): void {
         this._id = data.id;
         this._topic = data.topic;
         this._date = data.date;

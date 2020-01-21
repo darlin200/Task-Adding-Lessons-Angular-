@@ -3,13 +3,13 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ModalComponent, DialogComponent} from './modal/modal.component';
+import {DashboardComponent, DialogComponent} from './main/dashboardcomponent';
 import {
   MatCardModule, MatDialogModule, MatButtonModule, MatFormFieldModule,
   MatInputModule, MatTableModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DataService} from './user.service';
+import {DataService} from './data.service';
 import {TextMaskModule} from 'angular2-text-mask';
 
 
@@ -35,7 +35,7 @@ import {TextMaskModule} from 'angular2-text-mask';
   ],
   declarations: [
     AppComponent,
-    ModalComponent,
+    DashboardComponent,
     DialogComponent,
   ],
   bootstrap: [AppComponent],

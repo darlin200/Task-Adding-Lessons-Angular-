@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IData {
     id?: number;
     topic: string;
     date: string;
