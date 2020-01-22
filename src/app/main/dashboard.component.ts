@@ -10,7 +10,7 @@ import {
 import {ModelComponent} from '../model.component';
 import {DataService} from '../data.service';
 import {BehaviorSubject, timer} from 'rxjs';
-import {CaseListDatasource} from './elements.directive';
+import {CaseListDatasource} from './elements';
 import {formatDate} from '@angular/common';
 
 // Creating array of data
