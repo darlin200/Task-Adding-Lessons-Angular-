@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   public logic = true;
   public toggle = false;
   public editableInput = false;
-  // I declare that for fetching data in onInit
+  // Empty variable for fetching data whiсh is using in onInit
   public data: any;
   // Define name of displayed columns
   public displayedColumns: string[] = [
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     'lecturer',
     'action'
   ];
-  // Define our array ass behaviorSubject
+  // Define our array as behaviorSubject
   public subject = new BehaviorSubject(ELEMENT_DATA);
   // Define dataSourse for creating observable for subject
   public dataSource = new CaseListDatasource(this.subject.asObservable());
@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
     this.logic = !this.logic;
     this.editableInput = !this.editableInput;
   }
-  // Delete row function is using id as an argument , and deleting the last object in array.
+  // Delete row function is using id as an argument, and deleting the last object in array.
   deleteRow(id) {
     if(ELEMENT_DATA.length > 1) {
       ELEMENT_DATA.splice(id, 1);
@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
   }
 }
 
-// Second component is located at the same file. It`s basic realization which i saw on the official angular materials site.
+// Second component is located at the same file. It`s basic realization from  official angular materials exapmples.
 @Component({
   selector: 'app-dialog',
   templateUrl: 'dialog.component.html',
