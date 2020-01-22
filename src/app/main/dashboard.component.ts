@@ -145,7 +145,6 @@ export class DialogComponent extends ModelComponent<Data> {
     const format = 'dd/MM/yyyy';
     const locale = 'en-US';
     const getData = formatDate(this.src.date, format, locale);
-    console.log(getData);
     // Send to empty array our data from inputs (including our new valid type of date)
     this.dataInputs.push(
       this.formGroup.controls.topicFormControl.value,
