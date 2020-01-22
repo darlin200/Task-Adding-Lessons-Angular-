@@ -11,6 +11,7 @@ import {ModelComponent} from '../model.component';
 import {DataService} from '../data.service';
 import {BehaviorSubject, timer} from 'rxjs';
 import {CaseListDatasource} from './elements.directive';
+import {formatDate} from '@angular/common';
 
 // Creating array of data
 const ELEMENT_DATA: IData[] = [];
@@ -140,16 +141,11 @@ export class DialogComponent extends ModelComponent<Data> {
   }
 
   public addToList() {
-    // Get data of date
-    const getDay =
-      this.formGroup.controls.dateFormControl.value.getDate() < 10
-        ? '0' + this.formGroup.controls.dateFormControl.value.getDate()
-        : this.formGroup.controls.dateFormControl.value.getDate();
-    const getMonth =
-      this.formGroup.controls.dateFormControl.value.getMonth() + 1;
-    const getYear = this.formGroup.controls.dateFormControl.value.getFullYear();
-    // Const our date
-    const getData = `${getDay}/` + `${getMonth}/` + `${getYear}`;
+    // Formating data of date.
+    const format = 'dd/MM/yyyy';
+    const locale = 'en-US';
+    const getData = formatDate(this.src.date, format, locale);
+    console.log(getData);
     // Send to empty array our data from inputs (include our new valid type of date)
     this.dataInputs.push(
       this.formGroup.controls.topicFormControl.value,
