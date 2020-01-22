@@ -21,8 +21,9 @@ const ELEMENT_DATA: IData[] = [];
   styleUrls: ['dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // Boolean logic
+  // Boolean logic: for displaying table
   public try = false;
+  // Boolean logic: for edit button
   public logic = true;
   public toggle = false;
   public editableInput = false;
@@ -44,7 +45,7 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MatDialog, private dataService: DataService) {}
 
   ngOnInit() {
-    // Fething date from inputs
+    // Fetching date from inputs
     this.dataService.currentInputs.subscribe({
       next: (data: any) => {
         if(data.length >= 1) {
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit {
       width: '100vh'
     });
   }
-  // Edit function which based on toogling boolean objects
+  // Edit function which is based on toogling boolean objects
   editRow() {
     this.toggle = !this.toggle;
     this.logic = !this.logic;
@@ -104,7 +105,7 @@ export class DialogComponent extends ModelComponent<Data> {
   public static readonly CONTROL_KEY_LECTURER = 'lecturerFormControl';
   public static readonly CONTROL_KEY_ID = 'idFormControl';
   public staticScope = DialogComponent;
-  // Empty array for our logic for sending data to Dashboard
+  // Creating empty array for sending data to Dashboard
   public dataInputs = [];
 
   constructor(injector: Injector, private dataService: DataService) {
@@ -147,7 +148,7 @@ export class DialogComponent extends ModelComponent<Data> {
     const getMonth =
       this.formGroup.controls.dateFormControl.value.getMonth() + 1;
     const getYear = this.formGroup.controls.dateFormControl.value.getFullYear();
-    // Const out date
+    // Const our date
     const getData = `${getDay}/` + `${getMonth}/` + `${getYear}`;
     // Send to empty array our data from inputs (include our new valid type of date)
     this.dataInputs.push(
