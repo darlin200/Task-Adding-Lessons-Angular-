@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
     this.logic = !this.logic;
     this.editableInput = !this.editableInput;
   }
-  // Delete row function is using id as an argument, and deleting the last object in array.
+  //  This function is using id as an argument for deleting  object in array by using id
   deleteRow(id) {
     if(ELEMENT_DATA.length > 1) {
       ELEMENT_DATA.splice(id, 1);
