@@ -5,7 +5,7 @@
       <mat-form-field>
         <input matInput [(ngModel)]="src.topic" [formControlName]="staticScope.CONTROL_KEY_TOPIC" placeholder="Topic">
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_TOPIC).invalid">
-          <p>Це помилка ((( </p>
+          <p> Error: Please write correct data </p>
         </mat-error>
       </mat-form-field>
       <!-- Date Input -->
@@ -15,7 +15,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_DATE).invalid">
-          <p>Це помилка ((( </p>
+          <p>Error: Please write correct data </p>
         </mat-error>
       </mat-form-field>
       <!-- Lecturer Input -->
@@ -23,7 +23,7 @@
         <input matInput [(ngModel)]="src.lecturer" [formControlName]="staticScope.CONTROL_KEY_LECTURER"
           placeholder="Lecturer">
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_LECTURER).invalid">
-          <p>Це помилка ((( </p>
+          <p>Error: Please write correct data </p>
         </mat-error>
       </mat-form-field>
     </form>

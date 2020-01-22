@@ -58,6 +58,7 @@
         <mat-cell *matCellDef="let row; let i = index; " let>
           <button mat-stroked-button class='edit-button' (click)='editRow()' *ngIf="editableInput">Save</button>
           <button mat-stroked-button class='edit-button' (click)='editRow()' *ngIf="!editableInput">Edit</button>
+          <!-- Creating deleteRow() function inside 'Delete' button and giving an argument i. It is using for deleting elements by id -->
           <button mat-stroked-button (click)='deleteRow(i)'>Delete</button>
         </mat-cell>
       </ng-container>
