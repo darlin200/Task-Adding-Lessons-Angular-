@@ -5,18 +5,46 @@
     flex-direction: column;
     justify-content: center;
     margin: 0px auto;
+    padding-top: 5vw;
 }
-
 .wrapper-tittle {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    margin-top: 5vw;
 }
-
 .actions {
     margin-left: 6vh !important;
 }
-
 .edit-button {
     margin-right: 4px ;
+}
+.modal-button {
+    top: 3vw;
+}
+.modal-button:focus{
+    box-shadow: 0 0 rgba(255, 255, 255, 1) !important;
+    transition:none !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    -webkit-tap-highlight-color:rgba(255, 255, 255, 1) !important;
+}
+::ng-deep .modal-button>.mat-button-focus-overlay {
+    background-color:transparent !important;
+}
+::ng-deep .mat-app-background{
+    background: white !important 
+}
+::ng-deep .cdk-overlay-pane {
+    max-width: 100vw !important;
+    pointer-events: auto !important;
+    width: 100vw !important;
+    height: 100vw !important;
+    opacity: 0.8 !important;
+}
+.main-wrapper .mat-dialog-container{
+    padding: 0px !important;
+}
+#names-column-wrapper {
+    opacity: 0.8;
+    background: rgb(214,237,248);
+    background: linear-gradient(90deg, rgba(214,237,248,0.3) 0%, rgba(215,251,252,0.3) 52%, rgba(185,218,223,0.3) 98%);
 }

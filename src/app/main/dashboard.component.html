@@ -1,8 +1,8 @@
 <!-- Button 'Add new lesson' -->
-<button mat-button (click)="openDialog()">Add new lesson</button>
-<h2 class="mat-h2" *ngIf='!try' class='wrapper-tittle'>You haven`t added anything yet</h2>
+<button class='modal-button' mat-raised-button (click)="openDialog()">Add new lesson</button>
+<h2 class="mat-h2" *ngIf='!modalWindow' class='wrapper-tittle'>You haven`t added anything yet</h2>
 <!-- My table -->
-<div class='main-wrapper' *ngIf='try'>
+<div class='main-wrapper' *ngIf='modalWindow'>
   <!-- Names of Columns -->
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" id='names-column-wrapper'>
     <!-- Wrapper for generated data -->
@@ -18,10 +18,10 @@
       <ng-container matColumnDef="topic">
         <mat-header-cell *matHeaderCellDef> topic </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <div *ngIf='!editableInput'>
+          <div *ngIf='!element.edit'>
             {{element.topic}}
           </div>
-          <mat-form-field *ngIf='editableInput' floatLabel="never">
+          <mat-form-field *ngIf='element.edit' floatLabel="never">
             <input matInput placeholder="topic" [value]="element.topic" [(ngModel)]="element.topic">
           </mat-form-field>
         </mat-cell>
@@ -30,10 +30,10 @@
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef> date </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <div *ngIf='!editableInput'>
+          <div *ngIf='!element.edit'>
             {{element.date}}
           </div>
-          <mat-form-field *ngIf='editableInput' floatLabel="never">
+          <mat-form-field *ngIf='element.edit' floatLabel="never">
             <input matInput placeholder="date" [value]="element.date" [(ngModel)]="element.date">
           </mat-form-field>
         </mat-cell>
@@ -42,10 +42,10 @@
       <ng-container matColumnDef="lecturer">
         <mat-header-cell *matHeaderCellDef> lecturer </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <div *ngIf='!editableInput'>
+          <div *ngIf='!element.edit'>
             {{element.lecturer}}
           </div>
-          <mat-form-field *ngIf='editableInput' floatLabel="never">
+          <mat-form-field *ngIf='element.edit' floatLabel="never">
             <input matInput placeholder="lecturer" [value]="element.lecturer" [(ngModel)]="element.lecturer">
           </mat-form-field>
         </mat-cell>
@@ -55,9 +55,10 @@
         <mat-header-cell *matHeaderCellDef>
           <div class='actions'> Actions </div>
         </mat-header-cell>
-        <mat-cell *matCellDef="let row; let i = index; " let>
-          <button mat-stroked-button class='edit-button' (click)='editRow(i)' *ngIf="editableInput">Save</button>
-          <button mat-stroked-button class='edit-button' (click)='editRow(i)' *ngIf="!editableInput">Edit</button>
+        <mat-cell *matCellDef="let element; let i = index;">
+          <!-- Creating editButton() function inside 'Save' and 'Edit' buttons and giving an argument i. It is using for editing elements by id -->
+          <button mat-stroked-button class='edit-button' (click)='editRow(i)' *ngIf="element.edit">Save</button>
+          <button mat-stroked-button class='edit-button' (click)='editRow(i)' *ngIf="!element.edit">Edit</button>
           <!-- Creating deleteRow() function inside 'Delete' button and giving an argument i. It is using for deleting elements by id -->
           <button mat-stroked-button (click)='deleteRow(i)'>Delete</button>
         </mat-cell>

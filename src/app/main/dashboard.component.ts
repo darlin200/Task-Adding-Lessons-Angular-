@@ -1,18 +1,9 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, Injector, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {Data} from '../data.model';
 import {IData} from '../data.interface';
-import {
-  AbstractControlOptions,
-  FormControl,
-  Validators
-} from '@angular/forms';
-import {ModelComponent} from '../model.component';
 import {DataService} from '../data.service';
-import {BehaviorSubject, timer} from 'rxjs';
-import {CaseListDatasource} from './elements';
-import {formatDate} from '@angular/common';
-import {element} from 'protractor';
+import {BehaviorSubject} from 'rxjs';
+import {DialogComponent} from './dialog.component';
 
 // Creating array of data
 const ELEMENT_DATA: IData[] = [];
@@ -23,10 +14,8 @@ const ELEMENT_DATA: IData[] = [];
   styleUrls: ['dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // Boolean logic: for displaying table
-  public try = false;
-  // Boolean logic: for display standart type of data
-  public editableInput = false;
+  // Boolean logic for displaying table
+  public modalWindow = false;
   // Empty variable for fetching data whiсh is using in onInit
   public data: any;
   // Define name of displayed columns
@@ -40,7 +29,7 @@ export class DashboardComponent implements OnInit {
   // Define our array as behaviorSubject
   public subject = new BehaviorSubject(ELEMENT_DATA);
   // Define dataSourse for creating observable for subject
-  public dataSource = new CaseListDatasource(this.subject.asObservable());
+  public dataSource = this.subject.asObservable();
   // Define dialog and Data Service
   constructor(public dialog: MatDialog, private dataService: DataService) {}
 
@@ -60,12 +49,14 @@ export class DashboardComponent implements OnInit {
             topic: this.data[0],
             date: this.data[1],
             lecturer: this.data[2],
-            edit: true
+            edit: false
           });
+          if(ELEMENT_DATA.length > 0) {
+            this.modalWindow = true;
+          }
           // Send new value of our basic array
           this.subject.next(ELEMENT_DATA);
           // Allowing to display rows in html template
-          this.try = true;
         }
       }
     });
@@ -74,88 +65,31 @@ export class DashboardComponent implements OnInit {
   openDialog() {
     this.dialog.open(DialogComponent, {
       height: '40vw',
-      width: '100vh'
+      width: '100vh',
+      panelClass: 'dialog-wrapper'
     });
   }
-  // Edit function which is based on toogling boolean objects
+  // Edit function which is based on toogling element 'key' in object
   editRow(id) {
-    if(ELEMENT_DATA[id].edit === true) {
-      this.editableInput = !this.editableInput;
-      ELEMENT_DATA[id].edit = false;
-    } else if(ELEMENT_DATA[id].edit === false) {
-      this.editableInput = !this.editableInput;
+    if(ELEMENT_DATA[id].edit === false) {
       ELEMENT_DATA[id].edit = true;
+    } else if(ELEMENT_DATA[id].edit === true) {
+      ELEMENT_DATA[id].edit = false;
     }
     this.subject.next(ELEMENT_DATA);
   }
-  //  This function is using id as an argument for deleting  object in array by using id
+
   deleteRow(id) {
-    if(ELEMENT_DATA.length > 1) {
+    // using id as an argument for deleting  object in array
+    if(ELEMENT_DATA.length >= 0) {
       ELEMENT_DATA.splice(id, 1);
+    }
+    // Hide table if our array dont have a data
+    if(ELEMENT_DATA.length === 0) {
+      this.modalWindow = false;
     }
     // Send new value to our basic array
     this.subject.next(ELEMENT_DATA);
   }
 }
 
-// Second component is located at the same file. It`s basic realization from  official angular materials exapmples.
-@Component({
-  selector: 'app-dialog',
-  templateUrl: 'dialog.component.html',
-  styleUrls: ['dialog.component.css']
-})
-export class DialogComponent extends ModelComponent<Data> {
-  // Creating static variable for formControl
-  public static readonly CONTROL_KEY_TOPIC = 'topicFormControl';
-  public static readonly CONTROL_KEY_DATE = 'dateFormControl';
-  public static readonly CONTROL_KEY_LECTURER = 'lecturerFormControl';
-  public static readonly CONTROL_KEY_ID = 'idFormControl';
-  public staticScope = DialogComponent;
-  // Creating empty array for sending data to Dashboard
-  public dataInputs = [];
-
-  constructor(injector: Injector, private dataService: DataService) {
-    super(injector);
-  }
-
-  // Generate Form Controls from inherited component
-  protected generateFormControls(): {key: string; control: FormControl}[] {
-    const fControls = [
-      {
-        key: this.staticScope.CONTROL_KEY_TOPIC,
-        control: this.newFormControl(Validators.required)
-      },
-      {
-        key: this.staticScope.CONTROL_KEY_DATE,
-        control: this.newFormControl(Validators.required)
-      },
-      {
-        key: this.staticScope.CONTROL_KEY_LECTURER,
-        control: this.newFormControl(Validators.required)
-      }
-    ];
-    return fControls;
-  }
-
-  // Generate form group options from inherited component
-  protected generateFormGroupOptions():
-    | AbstractControlOptions
-    | {[p: string]: any}
-    | null {
-    return undefined;
-  }
-
-  public addToList() {
-    // Formating data of date.
-    const format = 'dd/MM/yyyy';
-    const locale = 'en-US';
-    const getData = formatDate(this.src.date, format, locale);
-    // Send to empty array our data from inputs (including our new valid type of date)
-    this.dataInputs.push(
-      this.formGroup.controls.topicFormControl.value,
-      getData,
-      this.formGroup.controls.lecturerFormControl.value
-    );
-    this.dataService.sendDataInpust(this.dataInputs);
-  }
-}
