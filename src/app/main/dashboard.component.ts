@@ -12,6 +12,7 @@ import {DataService} from '../data.service';
 import {BehaviorSubject, timer} from 'rxjs';
 import {CaseListDatasource} from './elements';
 import {formatDate} from '@angular/common';
+import {element} from 'protractor';
 
 // Creating array of data
 const ELEMENT_DATA: IData[] = [];
@@ -24,9 +25,7 @@ const ELEMENT_DATA: IData[] = [];
 export class DashboardComponent implements OnInit {
   // Boolean logic: for displaying table
   public try = false;
-  // Boolean logic: for edit button
-  public logic = true;
-  public toggle = false;
+  // Boolean logic: for display standart type of data
   public editableInput = false;
   // Empty variable for fetching data whiсh is using in onInit
   public data: any;
@@ -51,16 +50,17 @@ export class DashboardComponent implements OnInit {
       next: (data: any) => {
         if(data.length >= 1) {
           this.data = data;
-          // Defining id in row
+          // Defining id in a row
           const nextId = ELEMENT_DATA.length
             ? ELEMENT_DATA[ELEMENT_DATA.length - 1].id + 1
             : 1;
-          // Pushing new object to our basic array
+          // Pushing new object to our basic an array
           ELEMENT_DATA.push({
             id: nextId,
             topic: this.data[0],
             date: this.data[1],
-            lecturer: this.data[2]
+            lecturer: this.data[2],
+            edit: true
           });
           // Send new value of our basic array
           this.subject.next(ELEMENT_DATA);
@@ -78,10 +78,15 @@ export class DashboardComponent implements OnInit {
     });
   }
   // Edit function which is based on toogling boolean objects
-  editRow() {
-    this.toggle = !this.toggle;
-    this.logic = !this.logic;
-    this.editableInput = !this.editableInput;
+  editRow(id) {
+    if(ELEMENT_DATA[id].edit === true) {
+      this.editableInput = !this.editableInput;
+      ELEMENT_DATA[id].edit = false;
+    } else if(ELEMENT_DATA[id].edit === false) {
+      this.editableInput = !this.editableInput;
+      ELEMENT_DATA[id].edit = true;
+    }
+    this.subject.next(ELEMENT_DATA);
   }
   //  This function is using id as an argument for deleting  object in array by using id
   deleteRow(id) {
