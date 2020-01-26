@@ -16,7 +16,6 @@ export class DialogComponent extends ModelComponent<Data> {
     public static readonly CONTROL_KEY_TOPIC = 'topicFormControl';
     public static readonly CONTROL_KEY_DATE = 'dateFormControl';
     public static readonly CONTROL_KEY_LECTURER = 'lecturerFormControl';
-    public static readonly CONTROL_KEY_ID = 'idFormControl';
     public staticScope = DialogComponent;
     // Creating empty array for sending data to Dashboard
     public dataInputs = [];
@@ -46,7 +45,10 @@ export class DialogComponent extends ModelComponent<Data> {
             },
             {
                 key: this.staticScope.CONTROL_KEY_LECTURER,
-                control: this.newFormControl(Validators.required)
+                control: this.newFormControl([
+                    Validators.required,
+                    Validators.minLength(3)
+                ])
             }
         ];
         return fControls;
@@ -61,16 +63,21 @@ export class DialogComponent extends ModelComponent<Data> {
     }
 
     public addToList() {
-        // Formating data of date.
-        const format = 'dd/MM/yyyy';
-        const locale = 'en-US';
-        const getData = formatDate(this.src.date, format, locale);
-        // Send to empty array our data from inputs (including our new valid type of date)
+        // Send to empty array our data from inputs
         this.dataInputs.push(
             this.src.topic,
-            getData,
+            this.src.date,
             this.src.lecturer
         );
         this.dataService.sendDataInpust(this.dataInputs);
+    }
+
+    public dateValidator() {
+        this.src.date = this.src.date.replace(/[^0-9/]/g, '');
+        if(this.src.date.length === 2){
+        this.src.date +=  '/';
+        } else if (this.src.date.length === 5){
+            this.src.date +=  '/';
+        }
     }
 }

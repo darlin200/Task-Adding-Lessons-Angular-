@@ -10,12 +10,11 @@
       </mat-form-field>
       <!-- Date Input -->
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE"
-          placeholder="Date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-label>Date</mat-label>
+        <input matInput [(ngModel)]="src.date" [formControlName]="staticScope.CONTROL_KEY_DATE" placeholder="dd.mm.yyyy"
+          (keyup)='dateValidator()' maxlength='10'>
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_DATE).invalid">
-          <p>Error: Please write correct data </p>
+          <p>Please write correct date in format 'dd.mm.yyyy'</p>
         </mat-error>
       </mat-form-field>
       <!-- Lecturer Input -->
@@ -23,7 +22,7 @@
         <input matInput [(ngModel)]="src.lecturer" [formControlName]="staticScope.CONTROL_KEY_LECTURER"
           placeholder="Lecturer">
         <mat-error *ngIf="formGroup.get(staticScope.CONTROL_KEY_LECTURER).invalid">
-          <p>Error: Please write correct data </p>
+          <p>Please write correct at least 3 character </p>
         </mat-error>
       </mat-form-field>
     </form>
