@@ -74,10 +74,19 @@ export class DialogComponent extends ModelComponent<Data> {
 
     public dateValidator() {
         this.src.date = this.src.date.replace(/[^0-9/]/g, '');
-        if(this.src.date.length === 2){
-        this.src.date +=  '/';
-        } else if (this.src.date.length === 5){
+        if (this.src.date[0] >= 4) {
+             this.src.date =  this.src.date.substring(0, this.src.date.length - 1);
+        } else if (this.src.date.length === 2 ) {
+         this.src.date +=  '/';
+        } else if (this.src.date[3] > 1 ) {
+           this.src.date =  this.src.date.substring(0, this.src.date.length - 1);
+        } else if (this.src.date[3] + this.src.date[4] > 12) {
+            this.src.date =  this.src.date.substring(0, this.src.date.length - 1);
+        } else if (this.src.date.length === 5) {
             this.src.date +=  '/';
+        } else if (this.src.date[6] > 2 ) {
+            this.src.date =  this.src.date.substring(0, this.src.date.length - 1);
+            console.log(this.src.date[6]);
         }
     }
 }

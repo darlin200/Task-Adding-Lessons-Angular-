@@ -1,8 +1,8 @@
-import {EventEmitter, Input, Output, Injector} from '@angular/core';
+import {EventEmitter, Input, Output, Injector, OnInit} from '@angular/core';
 import {FormComponent} from './form.component';
 import {error} from 'util';
 
-export abstract class ModelComponent<T> extends FormComponent {
+export abstract class ModelComponent<T> extends FormComponent implements OnInit {
 
     protected _src: T;
     protected readonly _srcChange: EventEmitter<T>;
